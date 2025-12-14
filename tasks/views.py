@@ -8,6 +8,22 @@ from .forms import TaskForm
 from .models import Task
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
+from django.http import HttpResponse
+
+def create_admin_once(request):
+    # Verifica si el usuario ya existe
+    if not get_user_model().objects.filter(username="admin").exists():
+        # Crea un superusuario
+        get_user_model().objects.create_superuser(
+            username="admin",
+            email="admin@example.com",
+            password="admin123"
+        )
+        return HttpResponse("Superusuario creado correctamente")
+    else:
+        return HttpResponse("El superusuario ya existe")
+
 
 def home(request):
     return render(request, "home.html")
