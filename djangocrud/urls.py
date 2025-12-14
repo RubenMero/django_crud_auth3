@@ -32,5 +32,3 @@ urlpatterns = [
     path('signin/',views.signin,name='signin'),
     path('create-admin/', views.create_admin_once, name='create_admin'),
 ]
-
-]
